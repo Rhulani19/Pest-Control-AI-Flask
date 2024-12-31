@@ -1,0 +1,196 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and Header */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4; /* Light gray background */
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #000; /* Black header */
+    color: white;
+}
+
+.logo {
+    width: 100px; /* Adjust based on your logo size */
+    border-radius: 50%; /* Make the logo round */
+}
+
+/* Navbar Styles */
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #28a745; /* Green on hover */
+}
+
+/* Main Banner */
+#banner {
+    background-image: url('images/banner.jpg'); /* Adjust with your banner image */
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Call to Action Button */
+.cta-button {
+    background-color: #28a745; /* Green */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #218838; /* Darker green */
+}
+
+/* Services Section */
+#services {
+    padding: 40px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.service-card {
+    display: inline-block;
+    width: 23%; /* Adjusted to fit better with margin */
+    margin: 1%;
+    background-color: #f8f9fa; /* Light gray for service cards */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s; /* Added animation on hover */
+}
+
+.service-card:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.service-card img {
+    width: 100%; /* Full width */
+    border-radius: 8px 8px 0 0;
+}
+
+/* Testimonials Section */
+#testimonials {
+    padding: 40px;
+    background-color: #e9ecef;
+    text-align: center;
+}
+
+.testimonial {
+    margin: 20px;
+    font-style: italic;
+}
+
+/* About Us Section */
+#about {
+    padding: 40px;
+    text-align: center;
+}
+
+/* Contact Preview Section */
+#contact-preview {
+    padding: 20px;
+    background-color: #28a745; /* Green */
+    color: white;
+    text-align: center;
+}/* Footer */
+footer {
+    background-color: #000; /* Black background like header */
+    color: white; /* White text color */
+    padding: 1rem 0; /* Reduced padding for a smaller footer */
+    text-align: center; /* Center align text */
+}
+
+/* Footer Content */
+.footer-content {
+    max-width: 1200px; /* Same max-width as header */
+    margin: 0 auto; /* Center align footer content */
+    display: flex; /* Use flexbox for horizontal layout */
+    justify-content: space-around; /* Distribute space evenly between items */
+    align-items: center; /* Center items vertically */
+    padding: 0 1rem; /* Padding for mobile responsiveness */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.footer-content h3 {
+    text-transform: uppercase; /* Match header style */
+    color: #28a745; /* Use green for headings */
+    margin: 0 1rem; /* Space around headings */
+    font-size: 1.2rem; /* Reduced font size for headings */
+}
+
+.footer-content ul {
+    list-style: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+    display: flex; /* Use flexbox for horizontal list */
+}
+
+.footer-content ul li {
+    margin: 0 1rem; /* Horizontal spacing between list items */
+}
+
+.footer-content ul li a {
+    color: white; /* White links */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s; /* Transition for hover effect */
+}
+
+.footer-content ul li a:hover {
+    color: #28a745; /* Green on hover */
+    text-decoration: underline; /* Underline on hover */
+}
+
+.footer-credit {
+    margin-top: 1rem; /* Space above credit */
+    font-size: 1rem; /* Reduced font size for credit text */
+    color: #ddd; /* Light gray for credit text */
+}
+
+/* Highlight brand name in credit */
+.footer-credit span {
+    color: #28a745; /* Green color for brand name */
+}
+
+
+/* Additional Styles */
+.welcome-message {
+    background-color: #e8f5e9; /* Light green background */
+    padding: 15px;
+    text-align: center;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
+

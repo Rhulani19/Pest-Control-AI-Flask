@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - AlpineJS Chatbot</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.3/tailwind.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css'><link rel="stylesheet" href="/static/style/chatbot.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div x-data="chatBot()">
+    <div class="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
+        <div id="messages" class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+            <template x-for="(message, key) in messages">
+                <div>
+                    <div class="flex items-end" :class="message.from=='bot'?'':'justify-end'">
+                        <div class="flex flex-col space-y-2 text-md leading-tight max-w-lg mx-2" :class="message.from=='bot'?'order-2 items-start':'order-1 items-end'">
+                            <div>
+                                <span class="px-4 py-3 rounded-xl inline-block" :class="message.from=='bot'?'rounded-bl-none bg-gray-100 text-gray-600':'rounded-br-none bg-blue-500 text-white'" x-html="message.text"></span>
+                            </div>
+                        </div>
+                        <img :src="message.from=='bot'?'https://cdn.icon-icons.com/icons2/1371/PNG/512/robot02_90810.png':'https://i.pravatar.cc/100?img=7'" alt="" class="w-6 h-6 rounded-full" :class="message.from=='bot'?'order-1':'order-2'">
+                    </div>
+                </div>
+            </template>
+            <div x-show="botTyping" style="display: none;">
+                <div class="flex items-end">
+                    <div class="flex flex-col space-y-2 text-md leading-tight mx-2 order-2 items-start">
+                        <div><img src="https://support.signal.org/hc/article_attachments/360016877511/typing-animation-3x.gif" alt="..." class="w-16 ml-6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
+            <div class="relative flex">
+                <input type="text" placeholder="Say something..." autocomplete="off" autofocus="true" @keydown.enter="updateChat($event.target)" class="text-md w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-5 pr-16 bg-gray-100 border-2 border-gray-200 focus:border-blue-500 rounded-full py-2" x-ref="input" />
+                <div class="absolute right-2 items-center inset-y-0 hidden sm:flex">
+                    <button type="button" class="inline-flex items-center justify-center rounded-full h-8 w-8 transition duration-200 ease-in-out text-white bg-blue-500 hover:bg-blue-600 focus:outline-none" @click.prevent="updateChat($refs.input)">
+                        <i class="mdi mdi-arrow-right text-xl leading-none"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  function chatBot() {
+    return {
+      messages: [],  // Array to store messages
+      botTyping: false,
+
+      // Initialize with a welcome message
+      init() {
+        this.addBotMessage("Hello! How can I assist you today?");
+      },
+
+      // Function to handle user input and update chat
+      updateChat(input) {
+        const userMessage = input.value.trim();
+        if (userMessage === '') return;
+        this.addUserMessage(userMessage);
+        input.value = '';  // Clear input
+
+        this.botTyping = true;  // Show typing indicator
+        setTimeout(() => {
+          this.addBotMessage(this.generateBotResponse(userMessage));
+          this.botTyping = false;
+        }, 1000); // Simulate bot response delay
+      },
+
+      // Add a message from the user
+      addUserMessage(text) {
+        this.messages.push({ from: 'user', text });
+        this.scrollToBottom();
+      },
+
+      // Add a message from the bot
+      addBotMessage(text) {
+        this.messages.push({ from: 'bot', text });
+        this.scrollToBottom();
+      },
+
+      // Generate a bot response (customize this logic)
+      generateBotResponse(userMessage) {
+        // Basic example logic - adjust as needed
+        if (userMessage.toLowerCase().includes("hello")) {
+          return "Hi there! How can I help you?";
+        } else if (userMessage.toLowerCase().includes("how are you")) {
+          return "I'm just a bot, but I'm here to help!";
+        } else {
+          return "I'm here to answer your questions!";
+        }
+      },
+
+      // Scroll to the bottom of the chat
+      scrollToBottom() {
+        this.$nextTick(() => {
+          const messagesDiv = document.getElementById('messages');
+          messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        });
+      }
+    };
+  }
+</script>
+
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js'></script><script  src="/static/js/chatbot.js"></script>
+
+</body>
+</html>

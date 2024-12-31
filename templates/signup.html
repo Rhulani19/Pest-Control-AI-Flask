@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Farm Guide</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
+    <style>
+        /* Body Styles */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Full viewport height */
+            background-color: #f0f8ff; /* Light background color */
+            font-family: Arial, sans-serif; /* Font for the page */
+            color: #333; /* Dark text color */
+            margin: 0; /* Remove default margin */
+        }
+
+        /* Container for the form */
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            padding: 30px;
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+            width: 350px; /* Fixed width for the form */
+            text-align: center; /* Centered text */
+        }
+
+        /* Header Style */
+        h2 {
+            color: #28a745; /* Green color for the heading */
+            margin-bottom: 20px; /* Spacing below the heading */
+        }
+
+        /* Label Styles */
+        label {
+            display: block; /* Block display for labels */
+            font-weight: bold; /* Bold labels */
+            text-align: left; /* Align text to the left */
+            margin-bottom: 5px; /* Spacing below labels */
+            color: #555; /* Dark grey color for labels */
+        }
+
+        /* Input Styles */
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%; /* Full width of the parent */
+            padding: 10px; /* Inner padding for inputs */
+            margin-bottom: 15px; /* Spacing below inputs */
+            border: 1px solid #ccc; /* Light grey border */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 14px; /* Font size for inputs */
+            transition: border-color 0.3s; /* Smooth transition for border */
+        }
+
+        /* Input Focus Styles */
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #28a745; /* Change border color on focus */
+            outline: none; /* Remove outline */
+        }
+
+        /* Button Styles */
+        button {
+            width: 100%; /* Full width of the parent */
+            padding: 10px; /* Inner padding for button */
+            background-color: #28a745; /* Green background */
+            color: white; /* White text color */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 16px; /* Font size for button */
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: background-color 0.3s; /* Smooth transition for background */
+        }
+
+        /* Button Hover Styles */
+        button:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+
+        /* Error Message Styles */
+        .error-message {
+            color: red; /* Red color for error messages */
+            margin-top: 10px; /* Spacing above error messages */
+            font-weight: bold; /* Bold font for emphasis */
+        }
+
+        /* Link Styles */
+        .toggle-link {
+            margin-top: 20px; /* Spacing above toggle link */
+            font-size: 14px; /* Font size for links */
+        }
+
+        .toggle-link a {
+            color: #007bff; /* Bootstrap primary color for links */
+            text-decoration: none; /* Remove underline */
+        }
+
+        /* Link Hover Styles */
+        .toggle-link a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Sign Up</h2>
+        <form id="auth-form" onsubmit="event.preventDefault(); handleAuth();">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>  
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required> 
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <!-- Error message container -->
+        <div id="error-message" class="error-message"></div>
+
+        <div class="toggle-link">
+            <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a>.</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+    
+        const firebaseConfig = {
+            apiKey: "AIzaSyB8WuJwV9UssOC5FKB5Dqcdn1xx1rbZ3bI",
+            authDomain: "pestcontrolusers-bff8e.firebaseapp.com",
+            projectId: "pestcontrolusers-bff8e",
+            storageBucket: "pestcontrolusers-bff8e.appspot.com",
+            messagingSenderId: "939227877902",
+            appId: "1:939227877902:web:ac0b385c60f2f5e3bc625f",
+            measurementId: "G-RY1VHHFDLY"
+        };
+    
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+    
+        // Handle authentication
+        window.handleAuth = async function () {
+            const username = document.getElementById('username').value;
+            let email = document.getElementById('email').value.trim(); // Get and trim the email input
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const errorMessageDiv = document.getElementById('error-message');
+    
+            errorMessageDiv.textContent = ''; 
+    
+            // Check if the email contains '@'
+            if (!email.includes('@')) {
+                email += '@farmguide.com'; // Append the domain if missing
+            }
+    
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                errorMessageDiv.textContent = 'Passwords do not match.';
+                return;
+            }
+    
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password); // Use the updated email
+                const user = userCredential.user;
+    
+                // Store user information in the database
+                await set(ref(database, 'users/' + user.uid), { username: username, email: email });
+                window.location.href = '{{ url_for('login') }}';
+            } catch (error) {
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMessageDiv.textContent = "This email is already in use. Please log in instead.";
+                } else {
+                    errorMessageDiv.textContent = 'Signup failed: ' + error.message;
+                }
+            }
+        }
+    </script>
+    
+</body>
+</html>

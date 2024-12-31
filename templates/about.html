@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Farm Guide</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">  <!-- Fixed stylesheet URL -->
+    <link rel="icon" href="{{ url_for('static', filename='logo.webp') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="Farm Guide Logo" class="logo animate__animated animate__zoomIn"> 
+        <nav>
+            <ul class="nav">
+                <li><a href="{{url_for('home')}}">Home</a></li>
+                <li><a href="{{url_for('about')}}">About Us</a></li>
+                <li><a href="{{url_for('services')}}">Services</a></li>
+                <li><a href="{{url_for('location')}}">Our Location</a></li>
+                <li><a href="{{url_for('learn_more')}}">Learn More</a></li>
+                <li><a href="{{url_for('contact')}}">Contact Us</a></li>
+                <li><a href="{{url_for('login')}}">Login/Sign-Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Smart Agri Solutions is dedicated to transforming agriculture with smart, sustainable solutions. Our team of experts is committed to providing the best services to our clients, ensuring the highest standards in agricultural practices.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+            <h3>Contact Info</h3>
+            <p>Phone: 011 558 2545</p>
+            <p>Email: agrismartsol@ump.ac.za</p>
+            <p>Address: UNIVERSITY OF MPUMALANGA, Mbombela Campus</p>
+            <p>&copy; 2024 by <span>Farm Guide</span></p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Signup - Farm Guide</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
+    <style>
+        /* Styles for the login/signup page */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #333;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        h2 {
+            color: #28a745;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyB8WuJwV9UssOC5FKB5Dqcdn1xx1rbZ3bI",
+            authDomain: "pestcontrolusers-bff8e.firebaseapp.com",
+            projectId: "pestcontrolusers-bff8e",
+            storageBucket: "pestcontrolusers-bff8e.appspot.com",
+            messagingSenderId: "939227877902",
+            appId: "1:939227877902:web:ac0b385c60f2f5e3bc625f",
+            measurementId: "G-RY1VHHFDLY"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+
+        window.handleAuth = async function () {
+            const formTitle = document.getElementById('form-title').innerText;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const email = document.getElementById('email') ? document.getElementById('email').value : null;
+            const errorMessageDiv = document.getElementById('error-message');
+
+            errorMessageDiv.textContent = ''; // Clear previous messages
+
+            if (formTitle === 'Login') {
+                try {
+                    await signInWithEmailAndPassword(auth, `${username}@farmguide.com`, password);
+                    window.location.href = '{{url_for('index')}}';
+                } catch (error) {
+                    errorMessageDiv.textContent = 'Login failed: ' + error.message;
+                }
+            } else {
+                if (password !== document.getElementById('confirm-password').value) {
+                    errorMessageDiv.textContent = 'Passwords do not match.';
+                    return;
+                }
+                try {
+                    const userCredential = await createUserWithEmailAndPassword(auth, `${username}@farmguide.com`, password);
+                    const user = userCredential.user;
+                    await set(ref(database, 'users/' + user.uid), { username: username, email: email });
+                    window.location.href = '{{url_for('login')}}';
+                } catch (error) {
+                    if (error.code === 'auth/email-already-in-use') {
+                        errorMessageDiv.textContent = "This email is already in use. Please log in instead.";
+                    } else {
+                        errorMessageDiv.textContent = 'Signup failed: ' + error.message;
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2 id="form-title">Login</h2>
+        <form id="auth-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>  
+
+            <label for="password">Password:</label>
+               <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+        
+
+            <div id="signup-fields" style="display: none;">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required> 
+
+                
+                
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+            </div>
+
+            <button type="button" onclick="handleAuth()">Login</button>
+        </form>
+
+        <!-- Error message container -->
+        <div id="error-message" class="error-message"></div>
+
+        <div class="helper-text">
+            <p>Forgot your password? <a href="#">Reset it here</a>.</p>
+        </div>
+        <div class="toggle-link" onclick="toggleForm()">
+            <p id="toggle-text">Don't have an account? <a href="{{url_for('signup')}}">Sign up here</a>.</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleForm() {
+            const formTitle = document.getElementById('form-title');
+            const signupFields = document.getElementById('signup-fields');
+            const toggleText = document.getElementById('toggle-text');
+            const button = document.querySelector('button');
+
+            if (formTitle.innerText === 'Login') {
+                formTitle.innerText = 'Sign Up';
+                button.innerText = 'Sign Up';
+                signupFields.style.display = 'block';
+                toggleText.innerText = 'Already have an account? Login here.';
+            } else {
+                formTitle.innerText = 'Login';
+                button.innerText = 'Login';
+                signupFields.style.display = 'none';
+                toggleText.innerText = "Don't have an account? Sign up here.";
+            }
+        }
+    </script> 
+    
+</body>
+</html>

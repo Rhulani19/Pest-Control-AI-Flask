@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Guide - Smart Agri Solutions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">  <!-- Fixed stylesheet URL -->
+    <link rel="icon" href="{{ url_for('static', filename='logo.webp') }}"> <!-- Fixed icon URL -->
+    <!-- Bootstrap CSS and Animate CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="animate__animated animate__fadeInDown">
+        <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="Farm Guide Logo" class="logo animate__animated animate__zoomIn"> <!-- Fixed logo URL -->
+        <nav>
+            <ul class="nav">
+                <li><a href="{{url_for('home')}}">Home</a></li>
+                <li><a href="{{url_for('about')}}">About Us</a></li>
+                <li><a href="{{url_for('services')}}">Services</a></li>
+                <li><a href="{{url_for('location')}}">Our Location</a></li>
+                <li><a href="{{url_for('learn_more')}}">Learn More</a></li>
+                <li><a href="{{url_for('contact')}}">Contact Us</a></li>
+                <li><a href="{{url_for('login')}}">Login/Sign-Up</a></li>
+            </ul>
+        </nav>
+    </header> 
+
+    <!-- Welcome Message -->
+    <div class="welcome-message animate__animated animate__fadeInUp">
+        <h1>Welcome to Farm Guide!</h1>
+        <p>Your go-to app for smart agriculture solutions. We utilize advanced technology for plant disease detection, monitoring, and more, ensuring a sustainable future for your crops.</p>
+    </div>
+    
+    <!-- Services Section -->
+    <section id="services" class="animate__animated animate__fadeInUp">
+        <h2>Our Services</h2>
+        <div class="service-card animate__animated animate__pulse">
+            <img src="{{ url_for('static', filename='images/detection.png') }}" alt="Service 1"> <!-- Fixed service image URLs -->
+            <h3>Plant Disease Detection</h3>
+            <p>Utilizing advanced technology to detect plant diseases early and effectively.</p>
+        </div>
+        <div class="service-card animate__animated animate__pulse">
+            <img src="{{ url_for('static', filename='images/monitoring.png') }}" alt="Service 2">
+            <h3>Plant Monitoring</h3>
+            <p>Real-time monitoring solutions to ensure optimal plant health and growth.</p>
+        </div>
+        <div class="service-card animate__animated animate__pulse">
+            <img src="{{ url_for('static', filename='images/Infestations.png') }}" alt="Service 3">
+            <h3>Infestation Solutions</h3>
+            <p>Expert solutions for managing infestations and protecting crops.</p>
+        </div>
+        <div class="service-card animate__animated animate__pulse">
+            <img src="{{ url_for('static', filename='images/future.png') }}" alt="Service 4">
+            <h3>Future Prevention</h3>
+            <p>Innovative strategies to prevent future infestations and diseases.</p>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="animate__animated animate__fadeIn">
+        <h2>What Our Clients Say</h2>
+        <div class="testimonial animate__animated animate__fadeInLeft">
+            <p>"Farm Guide has transformed the way we manage our crops. Their technology is top-notch!"</p>
+            <cite>- John Doe, Farmer</cite>
+        </div>
+        <div class="testimonial animate__animated animate__fadeInRight">
+            <p>"The monitoring solutions provided by Smart Agri Solutions are invaluable. Highly recommend!"</p>
+            <cite>- Jane Smith, Agronomist</cite>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="animate__animated animate__fadeInUp">
+        <h2>About Us</h2>
+        <p>Smart Agri Solutions is dedicated to transforming agriculture with smart, sustainable solutions. Our team of experts is committed to providing the best services to our clients, ensuring the highest standards in agricultural practices.</p>
+        <a href="about.html" class="cta-button">Learn More About Us</a>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact-preview" class="animate__animated animate__fadeInUp">
+        <h2>Get in Touch</h2>
+        <p>Have questions? <a href="contact.html">Contact us</a> today!</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact Us</a></li> 
+                
+            </ul>
+            <h3>Contact Info</h3>
+            <p>Phone: 011 558 2545</p>
+            <p>Email: agrismartsol@ump.ac.za</p>
+            <p>Address: UNIVERSITY OF MPUMALANGA, Mbombela Campus</p>
+            <p class="footer-credit">&copy; 2024 by <span>Farm Guide</span></p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn More - Farm Guide</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
+</head>
+<body>
+    <header>
+        <img src="C:/Users/user/Desktop/Login/logo.webp" alt="Farm Guide Logo" class="logo">
+        <nav>
+            <ul class="nav">
+                <li><a href="{{url_for('home')}}">Home</a></li>
+                <li><a href="{{url_for('about')}}">About Us</a></li>
+                <li><a href="{{url_for('services')}}">Services</a></li>
+                <li><a href="{{url_for('location')}}">Our Location</a></li>
+                <li><a href="{{url_for('learn_more')}}">Learn More</a></li>
+                <li><a href="{{url_for('contact')}}">Contact Us</a></li>
+                <li><a href="{{url_for('login')}}">Login/Sign-Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="learn_more">
+        <h2>Learn More</h2>
+        <p>Explore our resources and learn more about smart agricultural practices.</p>
+        <ul>
+            <li><a href="#">Resource 1: Sustainable Farming</a></li>
+            <li><a href="#">Resource 2: Technology in Agriculture</a></li>
+            <li><a href="#">Resource 3: Case Studies</a></li>
+        </ul>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+            <h3>Contact Info</h3>
+            <p>Phone: 011 558 2545</p>
+            <p>Email: agrismartsol@ump.ac.za</p>
+            <p>Address: UNIVERSITY OF MPUMALANGA, Mbombela Campus</p>
+            <p>&copy; 2024 by <span>Farm Guide</span></p>
+        </div>
+    </footer>
+</body>
+</html>
